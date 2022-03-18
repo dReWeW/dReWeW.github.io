@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Dalong&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="【Leetcode刷题笔记】393 UTF-8 编码验证题目描述 给定一个表示数据的整数数组 data ，返回它是否为有效的 UTF-8 编码。 UTF-8 中的一个字符可能的长度为 1 到 4 字节，遵循以下的规则：  对于 1 字节 的字符，字节的第一位设为 0 ，后面 7 位为这个符号的 unicode 码。 对于 n 字节 的字符 (n &gt; 1)，第一个字节的前 n 位都设为1，第">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dalong&#39; Blog">
+<meta property="og:url" content="http://example.com/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%91393%20UTF-8%20%E7%BC%96%E7%A0%81%E9%AA%8C%E8%AF%81/index.html">
+<meta property="og:site_name" content="Dalong&#39; Blog">
+<meta property="og:description" content="【Leetcode刷题笔记】393 UTF-8 编码验证题目描述 给定一个表示数据的整数数组 data ，返回它是否为有效的 UTF-8 编码。 UTF-8 中的一个字符可能的长度为 1 到 4 字节，遵循以下的规则：  对于 1 字节 的字符，字节的第一位设为 0 ，后面 7 位为这个符号的 unicode 码。 对于 n 字节 的字符 (n &gt; 1)，第一个字节的前 n 位都设为1，第">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-18T03:48:29.372Z">
+<meta property="article:modified_time" content="2022-03-13T03:29:21.768Z">
+<meta property="article:author" content="Dalong">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Dalong' Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dalong&#39; Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-【Leetcode刷题笔记】393 UTF-8 编码验证" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%91393%20UTF-8%20%E7%BC%96%E7%A0%81%E9%AA%8C%E8%AF%81/" class="article-date">
+  <time class="dt-published" datetime="2022-03-18T03:48:29.372Z" itemprop="datePublished">2022-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="【Leetcode刷题笔记】393-UTF-8-编码验证"><a href="#【Leetcode刷题笔记】393-UTF-8-编码验证" class="headerlink" title="【Leetcode刷题笔记】393 UTF-8 编码验证"></a>【Leetcode刷题笔记】393 UTF-8 编码验证</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><ul>
+<li><p>给定一个表示数据的整数数组 <code>data</code> ，返回它是否为有效的 <strong>UTF-8</strong> 编码。</p>
+<p><strong>UTF-8</strong> 中的一个字符可能的长度为 <strong>1 到 4 字节</strong>，遵循以下的规则：</p>
+<ol>
+<li>对于 <strong>1 字节</strong> 的字符，字节的第一位设为 0 ，后面 7 位为这个符号的 unicode 码。</li>
+<li>对于 <strong>n 字节</strong> 的字符 (n &gt; 1)，第一个字节的前 n 位都设为1，第 n+1 位设为 0 ，后面字节的前两位一律设为 10 。剩下的没有提及的二进制位，全部为这个符号的 unicode 码。</li>
+</ol>
+<p>这是 UTF-8 编码的工作方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Char. number range  |        UTF-8 octet sequence</span><br><span class="line">   (hexadecimal)    |              (binary)</span><br><span class="line">--------------------+---------------------------------------------</span><br><span class="line">0000 0000-0000 007F | 0xxxxxxx</span><br><span class="line">0000 0080-0000 07FF | 110xxxxx 10xxxxxx</span><br><span class="line">0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx</span><br><span class="line">0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>输入是整数数组。只有每个整数的 <strong>最低 8 个有效位</strong> 用来存储数据。这意味着每个整数只表示 1 字节的数据。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：data = [197,130,1]</span><br><span class="line">输出：true</span><br><span class="line">解释：数据表示字节序列:11000101 10000010 00000001。</span><br><span class="line">这是有效的 utf-8 编码，为一个 2 字节字符，跟着一个 1 字节字符。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：data = [235,140,4]</span><br><span class="line">输出：false</span><br><span class="line">解释：数据表示 8 位的序列: 11101011 10001100 00000100.</span><br><span class="line">前 3 位都是 1 ，第 4 位为 0 表示它是一个 3 字节字符。</span><br><span class="line">下一个字节是开头为 10 的延续字节，这是正确的。</span><br><span class="line">但第二个延续字节不以 10 开头，所以是不符合规则的。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>1 &lt;= data.length &lt;= 2 * 104</code></li>
+<li><code>0 &lt;= data[i] &lt;= 255</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p><strong>位运算</strong></p>
+<p>判断编码是否有效，需要解决两个问题：</p>
+<ol>
+<li>当前字节是否是单字节字符。</li>
+<li>多字节字符有多少位，是否符合格式。</li>
+</ol>
+<p>对于问题1，我们准备MASK1(1&lt;&lt;7)来判断</p>
+<p>对于问题2，我们依次从高位到低位判断有n个1（n的个数<strong>小于等于</strong>4个），随后判断后面的n个字节是否以10开头即可。</p>
+<p>当不满足以上任一条件时，编码无效。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> MASK1=<span class="number">1</span>&lt;&lt;<span class="number">7</span>;<span class="comment">// 判断1字节还是n字节</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> MASK2=(<span class="number">1</span>&lt;&lt;<span class="number">7</span>)+(<span class="number">1</span>&lt;&lt;<span class="number">6</span>); <span class="comment">// 判断编码第一字节还是其他字节</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validUtf8</span><span class="params">(<span class="type">int</span>[] data)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n=data.length;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i&lt;n)&#123;</span><br><span class="line">            <span class="keyword">if</span>((data[i]&amp;MASK1)==<span class="number">0</span>)&#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="type">int</span> nums=<span class="number">6</span>;</span><br><span class="line">                <span class="type">int</span> maskBytes=<span class="number">1</span>&lt;&lt;nums;</span><br><span class="line">                <span class="type">int</span> bytes=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(nums&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>((maskBytes&amp;data[i])==maskBytes)&#123;</span><br><span class="line">                        bytes++;</span><br><span class="line">                        nums--;</span><br><span class="line">                        maskBytes=<span class="number">1</span>&lt;&lt;nums;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums&lt;<span class="number">3</span>||bytes&lt;<span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt; bytes; j++) &#123;</span><br><span class="line">                    i++;</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;=n)&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>((data[i]&amp;MASK2)!=MASK1)&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂度</strong></p>
+<p>空间复杂度O(n）</p>
+<p>时间复杂度O(1)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%91393%20UTF-8%20%E7%BC%96%E7%A0%81%E9%AA%8C%E8%AF%81/" data-id="cl0vw382o000euouffkyuc4xp" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%91504%20%E4%B8%83%E8%BF%9B%E5%88%B6%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%9174%20%E6%90%9C%E7%B4%A2%E7%9F%A9%E9%98%B5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/18/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%912049%20%E7%BB%9F%E8%AE%A1%E6%9C%80%E9%AB%98%E5%88%86%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E7%9B%AE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%912044%20%E7%BB%9F%E8%AE%A1%E6%8C%89%E4%BD%8D%E6%88%96%E8%83%BD%E5%BE%97%E5%88%B0%E6%9C%80%E5%A4%A7%E5%80%BC%E7%9A%84%E5%AD%90%E9%9B%86%E6%95%B0%E7%9B%AE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911994%20%E5%A5%BD%E5%AD%90%E9%9B%86%E6%95%B0%E7%9B%AE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911706%20%E7%90%83%E4%BC%9A%E8%90%BD%E4%BD%95%E5%A4%84/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Dalong<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

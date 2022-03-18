@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Dalong&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="【Leetcode刷题笔记】1706 球会落何处题目描述用一个大小为 m x n 的二维网格 grid 表示一个箱子。你有 n 颗球。箱子的顶部和底部都是开着的。 箱子中的每个单元格都有一个对角线挡板，跨过单元格的两个角，可以将球导向左侧或者右侧。  将球导向右侧的挡板跨过左上角和右下角，在网格中用 1 表示。 将球导向左侧的挡板跨过右上角和左下角，在网格中用 -1 表示。  在箱子每一列的顶端各">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dalong&#39; Blog">
+<meta property="og:url" content="http://example.com/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911706%20%E7%90%83%E4%BC%9A%E8%90%BD%E4%BD%95%E5%A4%84/index.html">
+<meta property="og:site_name" content="Dalong&#39; Blog">
+<meta property="og:description" content="【Leetcode刷题笔记】1706 球会落何处题目描述用一个大小为 m x n 的二维网格 grid 表示一个箱子。你有 n 颗球。箱子的顶部和底部都是开着的。 箱子中的每个单元格都有一个对角线挡板，跨过单元格的两个角，可以将球导向左侧或者右侧。  将球导向右侧的挡板跨过左上角和右下角，在网格中用 1 表示。 将球导向左侧的挡板跨过右上角和左下角，在网格中用 -1 表示。  在箱子每一列的顶端各">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/12/26/ball.jpg">
+<meta property="article:published_time" content="2022-03-18T03:48:29.384Z">
+<meta property="article:modified_time" content="2022-02-23T17:02:30.316Z">
+<meta property="article:author" content="Dalong">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/12/26/ball.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Dalong' Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dalong&#39; Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-【Leetcode刷题笔记】1706 球会落何处" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911706%20%E7%90%83%E4%BC%9A%E8%90%BD%E4%BD%95%E5%A4%84/" class="article-date">
+  <time class="dt-published" datetime="2022-03-18T03:48:29.384Z" itemprop="datePublished">2022-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="【Leetcode刷题笔记】1706-球会落何处"><a href="#【Leetcode刷题笔记】1706-球会落何处" class="headerlink" title="【Leetcode刷题笔记】1706 球会落何处"></a>【Leetcode刷题笔记】1706 球会落何处</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>用一个大小为 <code>m x n</code> 的二维网格 <code>grid</code> 表示一个箱子。你有 <code>n</code> 颗球。箱子的顶部和底部都是开着的。</p>
+<p>箱子中的每个单元格都有一个对角线挡板，跨过单元格的两个角，可以将球导向左侧或者右侧。</p>
+<ul>
+<li>将球导向右侧的挡板跨过左上角和右下角，在网格中用 <code>1</code> 表示。</li>
+<li>将球导向左侧的挡板跨过右上角和左下角，在网格中用 <code>-1</code> 表示。</li>
+</ul>
+<p>在箱子每一列的顶端各放一颗球。每颗球都可能卡在箱子里或从底部掉出来。如果球恰好卡在两块挡板之间的 “V” 形图案，或者被一块挡导向到箱子的任意一侧边上，就会卡住。</p>
+<p>返回一个大小为 <code>n</code> 的数组 <code>answer</code> ，其中 <code>answer[i]</code> 是球放在顶部的第 <code>i</code> 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 <code>-1</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/12/26/ball.jpg" alt="img"></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[1,1,1,-1,-1],[1,1,1,-1,-1],[-1,-1,-1,1,1],[1,1,1,1,-1],[-1,-1,-1,-1,-1]]</span><br><span class="line">输出：[1,-1,-1,-1,-1]</span><br><span class="line">解释：示例如图：</span><br><span class="line">b0 球开始放在第 0 列上，最终从箱子底部第 1 列掉出。</span><br><span class="line">b1 球开始放在第 1 列上，会卡在第 2、3 列和第 1 行之间的 &quot;V&quot; 形里。</span><br><span class="line">b2 球开始放在第 2 列上，会卡在第 2、3 列和第 0 行之间的 &quot;V&quot; 形里。</span><br><span class="line">b3 球开始放在第 3 列上，会卡在第 2、3 列和第 0 行之间的 &quot;V&quot; 形里。</span><br><span class="line">b4 球开始放在第 4 列上，会卡在第 2、3 列和第 1 行之间的 &quot;V&quot; 形里。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[-1]]</span><br><span class="line">输出：[-1]</span><br><span class="line">解释：球被卡在箱子左侧边上。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1],[1,1,1,1,1,1],[-1,-1,-1,-1,-1,-1]]</span><br><span class="line">输出：[0,1,2,3,4,-1]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>m == grid.length</code></li>
+<li><code>n == grid[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 100</code></li>
+<li><code>grid[i][j]</code> 为 <code>1</code> 或 <code>-1</code></li>
+</ul>
+<p>Related Topics</p>
+<ul>
+<li>深度优先搜索</li>
+</ul>
+<ul>
+<li><p>数组</p>
+</li>
+<li><p>动态规划</p>
+</li>
+<li><p>矩阵</p>
+</li>
+<li><p>模拟</p>
+</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>由于此题每一层的出口都直接由上一层的导板方向所影响，所以只需要在向下遍历每一层的同时，维护当前层出口的dp数组即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] findBall(<span class="type">int</span>[][] grid) &#123;</span><br><span class="line">        <span class="comment">// dp[n]</span></span><br><span class="line">        <span class="comment">// 状态转移方程如下</span></span><br><span class="line">        <span class="comment">// if(grid[row][dp[col]]==1&amp;&amp;grid[row][dp[col]+1]==1 dp[col]+=1;</span></span><br><span class="line">        <span class="comment">// if(grid[row][dp[col]]==1&amp;&amp;grid[row][dp[col]+1]==-1 dp[col]=-1;</span></span><br><span class="line">        <span class="comment">// if(grid[row][dp[col]]==-1&amp;&amp;grid[row][dp[col]-1]==-1 dp[col]-=1;</span></span><br><span class="line">        <span class="comment">// if(grid[row][dp[col]]==-1&amp;&amp;grid[row][dp[col]-1]==1 dp[col]=-1;</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span>[] dp = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            dp[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> <span class="number">0</span>; row &lt; m; row++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> <span class="number">0</span>; col &lt; n; col++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dp[col] != -<span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (grid[row][dp[col]] == -<span class="number">1</span> &amp;&amp; dp[col] - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; grid[row][dp[col] - <span class="number">1</span>] == -<span class="number">1</span>) &#123;</span><br><span class="line">                        dp[col] -= <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (grid[row][dp[col]] == <span class="number">1</span> &amp;&amp; dp[col] + <span class="number">1</span> &lt; n &amp;&amp; grid[row][dp[col] + <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">                        dp[col] += <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        dp[col] = -<span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析</strong></p>
+<p>时间复杂度 O(mn+n)</p>
+<p>空间复杂度O(n)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911706%20%E7%90%83%E4%BC%9A%E8%90%BD%E4%BD%95%E5%A4%84/" data-id="cl0vw382j0007uoufcrp0buq0" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911994%20%E5%A5%BD%E5%AD%90%E9%9B%86%E6%95%B0%E7%9B%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911601%20%E6%9C%80%E5%A4%9A%E5%8F%AF%E8%BE%BE%E6%88%90%E7%9A%84%E6%8D%A2%E6%A5%BC%E8%AF%B7%E6%B1%82/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/18/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%912049%20%E7%BB%9F%E8%AE%A1%E6%9C%80%E9%AB%98%E5%88%86%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E7%9B%AE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%912044%20%E7%BB%9F%E8%AE%A1%E6%8C%89%E4%BD%8D%E6%88%96%E8%83%BD%E5%BE%97%E5%88%B0%E6%9C%80%E5%A4%A7%E5%80%BC%E7%9A%84%E5%AD%90%E9%9B%86%E6%95%B0%E7%9B%AE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911994%20%E5%A5%BD%E5%AD%90%E9%9B%86%E6%95%B0%E7%9B%AE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/18/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%911706%20%E7%90%83%E4%BC%9A%E8%90%BD%E4%BD%95%E5%A4%84/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Dalong<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
