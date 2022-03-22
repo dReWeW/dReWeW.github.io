@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Dalong"><title>【Java】Java并发编程 · Dalong's Blog</title><meta name="description" content="操作系统补充缓存行（cache line)
+缓存行一般是64字节大小，且在缓存中支持一致性协议。
+Volite 关键字字节码层面
+volite修饰的关键字，会在字节码里多出一个ACC_VOLITE标志
+
+JVM层面
+JVM层面会增加一个内存屏障，为了禁止指令乱序执行。
+
+使用volite修饰的变量，"><meta name="keywords" content="Blog,博客"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/insight.css"><link rel="stylesheet" href="/css/search.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 6.1.0"></head><body><div class="page-top animated fadeInDown"><div class="nav"><li> <a href="/">首页</a></li><li> <a href="/archives">归档</a></li><li> <a href="/tags">标签</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li><a class="fa fa-search" onclick="openWindow();"></a></li></div><div class="avatar"><img src="/images/avatar.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/avatar.webp" style="width:200px;" alt="favicon"><h3 title=""><a href="/">Dalong's Blog</a></h3><div class="description"><p>随便写写</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/dReWeW"><i class="fa fa-github"></i></a></li><li><a href="mailto:dalongzd@qq.com"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=569775346"><i class="fa fa-qq"></i></a></li></ul></div></div><div class="footer"><div class="p"> <span> 全站CC-BY-SA-3.0 </span><i class="fa fa-star"></i><span> Dalong</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><span>Anatolo </span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【Java】Java并发编程</a></h3></div><div class="post-content"><p><h3 id="操作系统补充"><a href="#操作系统补充" class="headerlink" title="操作系统补充"></a>操作系统补充</h3><p><strong>缓存行（cache line)</strong></p>
+<p>缓存行一般是64字节大小，且在缓存中支持一致性协议。</p>
+<h3 id="Volite-关键字"><a href="#Volite-关键字" class="headerlink" title="Volite 关键字"></a>Volite 关键字</h3><h4 id="字节码层面"><a href="#字节码层面" class="headerlink" title="字节码层面"></a>字节码层面</h4><ul>
+<li>volite修饰的关键字，会在<strong>字节码</strong>里多出一个ACC_VOLITE标志</li>
+</ul>
+<h4 id="JVM层面"><a href="#JVM层面" class="headerlink" title="JVM层面"></a>JVM层面</h4><ul>
+<li><p><strong>JVM层面</strong>会增加一个内存屏障，为了禁止指令乱序执行。</p>
+</li>
+<li><p>使用volite修饰的变量，线程不会从缓存读取它，而是从主存读它</p>
+<ul>
+<li>关于缓存 CPU与主存之间往往由三级缓存，其中L1,L2在CPU内，L3在主板上</li>
+</ul>
+</li>
+<li><p>JVM要求所有的JVM实现以下屏障</p>
+<ul>
+<li>Loadload&#x2F;StoreLoad&#x2F;StoreStore&#x2F;storeLoad 屏障</li>
+<li>因而volatile在JVM下有以下屏障来禁止指令乱序执行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">---- LoadLoad barrier------ <span class="comment">// 前面一条写num操作执行完才能之下下面这条</span></span><br><span class="line">read(num)</span><br><span class="line">---- LoadStore barrier ----- <span class="comment">// 这条写Num操作执行完才能进行下面的读操作</span></span><br><span class="line"></span><br><span class="line">----storestore barrier----</span><br><span class="line">read(num)</span><br><span class="line">----loadstore barrier----</span><br></pre></td></tr></table></figure>
+
+<h4 id="CPU层面"><a href="#CPU层面" class="headerlink" title="CPU层面"></a>CPU层面</h4><ul>
+<li>sfence(storefence) lfence(loadfence) mfence(multi-fence全屏障)</li>
+<li>MESI 缓存行一致性协议</li>
+<li>Lock 锁总线</li>
+</ul>
+<h3 id="线程和锁"><a href="#线程和锁" class="headerlink" title="线程和锁"></a>线程和锁</h3><ul>
+<li>go的协程很像java的线程池之间的关系<ul>
+<li>go和java都是事先分配一些内核线程来处理任务队列</li>
+<li>java不能任务同步 但go可以</li>
+<li>go通过模拟了cpu的执行。（cpu时钟周期）</li>
+</ul>
+</li>
+</ul>
+<h2 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h2><p>内置锁在Java中被抽象为监视器锁（monitor）。在JDK 1.6之前，监视器锁可以认为直接对应底层操作系统中的互斥量（mutex）。这种同步方式的成本非常高，包括系统调用引起的内核态与用户态切换、线程阻塞造成的线程切换等。因此，后来称这种锁为“重量级锁”。</p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>首先，内核态与用户态的切换上不容易优化。但<strong>通过自旋锁，可以减少线程阻塞造成的线程切换</strong>（包括挂起线程和恢复线程）。</p>
+<p>如果锁的粒度小，那么<strong>锁的持有时间比较短</strong>（尽管具体的持有时间无法得知，但可以认为，通常有一部分锁能满足上述性质）。那么，对于竞争这些锁的而言，因为锁阻塞造成线程切换的时间与锁持有的时间相当，减少线程阻塞造成的线程切换，能得到较大的性能提升。具体如下：</p>
+<ul>
+<li>当前线程竞争锁失败时，打算阻塞自己</li>
+<li>不直接阻塞自己，而是自旋（空等待，比如一个空的有限for循环）一会</li>
+<li>在自旋的同时重新竞争锁</li>
+<li>如果自旋结束前获得了锁，那么锁获取成功；否则，自旋结束后阻塞自己</li>
+</ul>
+<p><em>如果在自旋的时间内，锁就被旧owner释放了，那么当前线程就不需要阻塞自己</em>（也不需要在未来锁释放时恢复），减少了一次线程切换。</p>
+<p>“锁的持有时间比较短”这一条件可以放宽。实际上，只要锁竞争的时间比较短（比如线程1快释放锁的时候，线程2才会来竞争锁），就能够提高自旋获得锁的概率。这通常发生在<strong>锁持有时间长，但竞争不激烈</strong>的场景中。</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>单核处理器上，不存在实际的并行，当前线程不阻塞自己的话，旧owner就不能执行，锁永远不会释放，此时不管自旋多久都是浪费；进而，如果线程多而处理器少，自旋也会造成不少无谓的浪费。</li>
+<li>自旋锁要占用CPU，如果是计算密集型任务，这一优化通常得不偿失，减少锁的使用是更好的选择。</li>
+<li>如果锁竞争的时间比较长，那么自旋通常不能获得锁，白白浪费了自旋占用的CPU时间。这通常发生在<em>锁持有时间长，且竞争激烈</em>的场景中，此时应主动禁用自旋锁。</li>
+</ul>
+<blockquote>
+<p>使用-XX:-UseSpinning参数关闭自旋锁优化；-XX:PreBlockSpin参数修改默认的自旋次数。</p>
+</blockquote>
+<h3 id="自适应自旋锁"><a href="#自适应自旋锁" class="headerlink" title="自适应自旋锁"></a>自适应自旋锁</h3><p>自适应意味着自旋的时间不再固定了，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定：</p>
+<ul>
+<li>如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也很有可能再次成功，进而它将允许自旋等待持续相对更长的时间，比如100个循环。</li>
+<li>相反的，如果对于某个锁，自旋很少成功获得过，那在以后要获取这个锁时将可能减少自旋时间甚至省略自旋过程，以避免浪费处理器资源。</li>
+</ul>
+<p><strong>自适应自旋解决的是“锁竞争时间不确定”的问题</strong>。JVM很难感知到确切的锁竞争时间，而交给用户分析就违反了JVM的设计初衷。<em>自适应自旋假定不同线程持有同一个锁对象的时间基本相当，竞争程度趋于稳定，因此，可以根据上一次自旋的时间与结果调整下一次自旋的时间</em>。</p>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p>然而，自适应自旋也没能彻底解决该问题，<em>如果默认的自旋次数设置不合理（过高或过低），那么自适应的过程将很难收敛到合适的值</em>。</p>
+<h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><p>自旋锁的目标是降低线程切换的成本。如果锁竞争激烈，我们不得不依赖于重量级锁，让竞争失败的线程阻塞；如果完全没有实际的锁竞争，那么申请重量级锁都是浪费的。<strong>轻量级锁的目标是，减少无实际竞争情况下，使用重量级锁产生的性能消耗</strong>，包括系统调用引起的内核态与用户态切换、线程阻塞造成的线程切换等。</p>
+<p>顾名思义，轻量级锁是相对于重量级锁而言的。使用轻量级锁时，不需要申请互斥量，仅仅<em>将Mark Word中的部分字节CAS更新指向线程栈中的Lock Record，如果更新成功，则轻量级锁获取成功</em>，记录锁状态为轻量级锁；<em>否则，说明已经有线程获得了轻量级锁，目前发生了锁竞争（不适合继续使用轻量级锁），接下来膨胀为重量级锁</em>。</p>
+<blockquote>
+<p>Mark Word是对象头的一部分；每个线程都拥有自己的线程栈（虚拟机栈），记录线程和函数调用的基本信息。二者属于JVM的基础内容，此处不做介绍。</p>
+</blockquote>
+<p>当然，由于轻量级锁天然瞄准不存在锁竞争的场景，如果存在锁竞争但不激烈，仍然可以用自旋锁优化，<em>自旋失败后再膨胀为重量级锁</em>。</p>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><p>同自旋锁相似：</p>
+<ul>
+<li>如果<em>锁竞争激烈</em>，那么轻量级将很快膨胀为重量级锁，那么维持轻量级锁的过程就成了浪费。</li>
+</ul>
+<h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>在没有实际竞争的情况下，还能够针对部分场景继续优化。如果不仅仅没有实际竞争，自始至终，使用锁的线程都只有一个，那么，维护轻量级锁都是浪费的。<strong>偏向锁的目标是，减少无竞争且只有一个线程使用锁的情况下，使用轻量级锁产生的性能消耗</strong>。轻量级锁每次申请、释放锁都至少需要一次CAS，但偏向锁只有初始化时需要一次CAS。</p>
+<p>“偏向”的意思是，<em>偏向锁假定将来只有第一个申请锁的线程会使用锁</em>（不会有任何线程再来申请锁），因此，<em>只需要在Mark Word中CAS记录owner（本质上也是更新，但初始值为空），如果记录成功，则偏向锁获取成功</em>，记录锁状态为偏向锁，<em>以后当前线程等于owner就可以零成本的直接获得锁；否则，说明有其他线程竞争，膨胀为轻量级锁</em>。</p>
+<p>偏向锁无法使用自旋锁优化，因为一旦有其他线程申请锁，就破坏了偏向锁的假定。</p>
+<h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><p>同样的，如果明显存在其他线程申请锁，那么偏向锁将很快膨胀为轻量级锁。</p>
+<blockquote>
+<p>不过这个副作用已经小的多。</p>
+<p>如果需要，使用参数-XX:-UseBiasedLocking禁止偏向锁优化（默认打开）。</p>
+</blockquote>
+</p><div class="tip">本文采用CC-BY-SA-3.0协议，转载请注明出处<br>作者: Dalong</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2022-03-21</span><a class="tag" href="/categories/Java/" title="Java">Java </a><i class="fa fa-tag"></i><a class="tag" href="/tags/Java基础/" title="Java基础">Java基础 </a><span class="leancloud_visitors"></span><span>大约2377个字, 7分钟55秒读完</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/home?status=,https://drewew.github.io/2022/03/21/【Java】Java并发编程/,Dalong's Blog,【Java】Java并发编程,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2022/03/21/%E3%80%90%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E3%80%91%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="【并发编程】高并发秒杀系统架构设计">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2022/03/19/%E3%80%90Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E3%80%91606-%E6%A0%B9%E6%8D%AE%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%9B%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="【Leetcode刷题笔记】606 根据二叉树创建字符串">下一篇</a></li></ul></div><script src="/js/visitors.js"></script></div></div></div></div><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script>(function(window){var INSIGHT_CONFIG={TRANSLATION:{POSTS:"文章",PAGES:"页面",CATEGORIES:"分类",TAGS:"标签",UNTITLED:"(无标题)",},CONTENT_URL:"/content.json",};window.INSIGHT_CONFIG=INSIGHT_CONFIG})(window);</script><script src="/js/insight.js" defer></script><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/js/baidu-tongji.js"></script></body></html>
